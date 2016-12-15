@@ -30,5 +30,10 @@ class BeersController < ApplicationController
      redirect_to beer_path(@beer["id"])
   end
 
+  def destroy
+     @beer = Unirest.delete("http://localhost:3001/api/v1/beers/#{params[:id]}.json").body
+     redirect_to "/beers"
+  end
+
 
 end

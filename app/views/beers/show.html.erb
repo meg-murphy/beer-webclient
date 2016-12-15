@@ -5,3 +5,8 @@
 <h3> <%= @beer["yeast"] %> </h3>
 <h3> <%= @beer["malts"] %> </h3>
 <h3> <%= @beer["ibu"] %> </h3>
+
+
+<div>
+<%= link_to "Delete Beer", "/beers/#{@beer["id"]}", method: :delete %>
+</div>
