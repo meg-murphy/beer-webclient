@@ -1,12 +1,12 @@
-<h2> <%= @beer["name"] %> </h2>
-<h3> <%= @beer["style"] %> </h3>
-<h3> <%= @beer["alcohol"] %> </h3>
-<h3> <%= @beer["hop"] %> </h3>
-<h3> <%= @beer["yeast"] %> </h3>
-<h3> <%= @beer["malts"] %> </h3>
-<h3> <%= @beer["ibu"] %> </h3>
+<h2> <%= @beer.name %> </h2>
+<h3> <%= @beer.style %> </h3>
+<h3> <%= @beer.alcohol %> </h3>
+<h3> <%= @beer.hop %> </h3>
+<h3> <%= @beer.yeast %> </h3>
+<h3> <%= @beer.malts %> </h3>
+<h3> <%= @beer.ibu %> </h3>
 
 
 <div>
-<%= link_to "Delete Beer", "/beers/#{@beer["id"]}", method: :delete %>
+<%= link_to "Delete Beer", "/beers/#{@beer.id}", method: :delete %>
 </div>

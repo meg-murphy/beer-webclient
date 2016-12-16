@@ -1,38 +1,37 @@
 class BeersController < ApplicationController
 
   def show
-    @beer = Unirest.get("http://localhost:3001/api/v1/beers/#{params[:id]}.json").body
+    @beer = Beer.find_beer(params[:id])
   end
 
   def index
-    @beers = Unirest.get("http://localhost:3001/api/v1/beers.json").body
+    @beers = Beer.all
   end
 
   def create
-    @beer = Unirest.post("http://localhost:3001/api/v1/beers", parameters: {name: params[:name], style: params[:style], hop: params[:hop],
+    @beer = Unirest.post("#{ENV['API_URL']}/beers", parameters: {name: params[:name], style: params[:style], hop: params[:hop],
      yeast: params[:yeast], malts: params[:malts], ibu: params[:ibu], alcohol: params[:alcohol]},
-     headers: {"Accept" => "application/json"}).body
+     headers: {"Accept" => "application/json", "Authorization" => "#{ENV['API_KEY']}", "X-User-Email" => "#{ENV['API_USER_EMAIL']}"}).body
 
      redirect_to beer_path(@beer["id"])
    end
 
 
   def edit
-    @beer = Unirest.get("http://localhost:3001/api/v1/beers/#{params[:id]}.json").body
+    @beer = Unirest.get("#{ENV['API_URL']}/beers/#{params[:id]}.json").body
   end
 
-
   def update
-    @beer = Unirest.patch("http://localhost:3001/api/v1/beers", parameters: {id: params[:id], name: params[:name], style: params[:style], hop: params[:hop],
+    @beer = Unirest.patch("#{ENV['API_URL']}/beers/#{params[:id]}", parameters: {name: params[:name], style: params[:style], hop: params[:hop],
      yeast: params[:yeast], malts: params[:malts], ibu: params[:ibu], alcohol: params[:alcohol]},
-     headers: {"Accept" => "application/json"}).body
-
+     headers: {"Accept" => "application/json", "Authorization" => "#{ENV['API_KEY']}", "X-User-Email" => "#{ENV['API_USER_EMAIL']}"}).body
      redirect_to beer_path(@beer["id"])
   end
 
   def destroy
-     @beer = Unirest.delete("http://localhost:3001/api/v1/beers/#{params[:id]}.json").body
-     redirect_to "/beers"
+    @beer = Beer.find_beer(params[:id])
+    @beer.delete_beer
+    redirect_to "/beers"
   end
 
 
